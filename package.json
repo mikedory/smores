@@ -16,6 +16,9 @@
     "type": "git",
     "url": "https://github.com/tombell/smores.git"
   },
+  "directories": {
+    "lib": "./lib"
+  },
   "main": "./lib/campfire.js",
   "dependencies": {
   },
