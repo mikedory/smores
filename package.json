@@ -16,11 +16,10 @@
     "type": "git",
     "url": "https://github.com/tombell/smores.git"
   },
-  "main": "./lib/index.js",
+  "main": "./lib/campfire.js",
   "dependencies": {
   },
   "devDependencies": {
-    "nodeunit": ">=0.5.0",
     "coffee-script": ">=1.1.1"
   },
   "engines": {
