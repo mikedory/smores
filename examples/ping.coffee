@@ -1,6 +1,6 @@
 Campfire = require("../lib/campfire").Campfire
 
-ROOM_ID = 403967
+ROOM_ID = process.env.CAMPFIRE_ROOM_ID
 
 campfire = new Campfire
   ssl: true
