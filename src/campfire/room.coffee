@@ -9,7 +9,6 @@ class Room
     @createdAt       = new Date data.created_at
     @updatedAt       = new Date data.updated_at
     @membershipLimit = data.membership_limit
-
     @path            = "/room/#{@id}"
 
   join: (callback) ->
@@ -33,15 +32,13 @@ class Room
 
     request = campfire.http.request options, (response) ->
       response.setEncoding 'utf8'
-
       response.on "data", (data) ->
-        data.split("\r").forEach (chunk) ->
+        for chunk in data.split("\r")
           try
             data = JSON.parse chunk.trim()
-          catch err
+            callback new Message campfire, data
+          catch e
             return
-
-          callback new Message campfire, data
 
     request.end()
 
@@ -59,7 +56,7 @@ class Room
 
   messages: (callback) ->
     @get "/recent", (error, response) =>
-      messages = new Message @campfire, message for message in response.messages if response
+      messages = (new Message @campfire, message for message in response.messages) if response
       callback error, messages
 
   show: (callback) ->
@@ -76,7 +73,7 @@ class Room
     callback = callback or date
     path += "/#{date.getFullYear()}/#{date.getMonth()}/#{date.getDate()}" if date instanceof Date
     @get path, (error,response) =>
-      messages = new Message @campfire, message for message in response.messages if response
+      messages = (new Message @campfire, message for message in response.message) if response
       callback error, messages
 
   tweet: (url, callback) ->

@@ -9,9 +9,9 @@ class Campfire
     throw new Error "Please provide an API token" unless options.token
     throw new Error "Please provide an account name" unless options.account
 
-    @http = (if ssl then require "https" else require "http")
-    @port = (if ssl then 443 else 80)
-    @domain = options.account + ".campfirenow.com"
+    @http          = (if ssl then require "https" else require "http")
+    @port          = (if ssl then 443 else 80)
+    @domain        = "#{options.account}.campfirenow.com"
     @authorization = "Basic " + new Buffer(options.token + ":x").toString("base64")
 
   join: (id, callback) ->
@@ -25,12 +25,12 @@ class Campfire
 
   presence: (callback) ->
     @get "/presence", (error, response) =>
-      rooms = new Room @, room for room in response.rooms if response
+      rooms = (new Room @, room for room in response.rooms) if response
       callback error, rooms
 
   rooms: (callback) ->
     @get "/rooms", (error, response) =>
-      rooms = new Room @, room for room in response.rooms if response
+      rooms = (new Room @, room for room in response.rooms) if response
       callback error, rooms
 
   room: (id, callback) ->
@@ -40,7 +40,7 @@ class Campfire
 
   search: (term, callback) ->
     @get "/search/#{term}", (error, response) =>
-      messages = new Message @, message for message in response.messages if response
+      messages = (new Message @, message for message in response.messages) if response
       callback error, messages
 
   user: (id, callback) ->
