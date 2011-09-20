@@ -10,11 +10,13 @@ class Room
     @updatedAt       = new Date data.updated_at
     @membershipLimit = data.membership_limit
     @path            = "/room/#{@id}"
+    @connection      = null
 
   join: (callback) ->
     @post '/join', '', callback
 
   leave: (callback) ->
+    @connection.destroy() if @connection
     @post '/leave', '', callback
 
   listen: (callback) ->
@@ -30,7 +32,8 @@ class Room
        'Host': 'streaming.campfirenow.com'
        'Authorization': campfire.authorization
 
-    request = campfire.http.request options, (response) ->
+    request = campfire.http.request options, (response) =>
+      @connection = response.connection
       response.setEncoding 'utf8'
       response.on 'data', (data) ->
         for chunk in data.split("\r")
