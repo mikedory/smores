@@ -9,10 +9,10 @@ class Message
     @path      = "/messages/#{@id}"
 
   star: (callback) ->
-    @post "/star", null, callback
+    @post '/star', null, callback
 
   unstar: (callback) ->
-    @delete "/star", callback
+    @delete '/star', callback
 
   delete: (path, callback) ->
     @campfire.delete @path + path, callback
