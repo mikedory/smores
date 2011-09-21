@@ -1,5 +1,5 @@
-Room    = require('./campfire/room').Room
-Message = require('./campfire/message').Message
+Room    = require('./room').Room
+Message = require('./message').Message
 
 class Campfire
   constructor: (options) ->
@@ -12,7 +12,7 @@ class Campfire
     @http          = (if ssl then require 'https' else require 'http')
     @port          = (if ssl then 443 else 80)
     @domain        = "#{options.account}.campfirenow.com"
-    @authorization = 'Basic ' + new Buffer(options.token + ":x").toString("base64")
+    @authorization = 'Basic ' + new Buffer(options.token + ':x').toString('base64')
 
   join: (id, callback) ->
     @room id, (error, room) ->
@@ -53,7 +53,7 @@ class Campfire
     @request 'GET', path, null, callback
 
   post: (path, body, callback) ->
-    @request "POST", path, body, callback
+    @request 'POST', path, body, callback
 
   request: (method, path, body, callback) ->
     headers =
@@ -73,7 +73,7 @@ class Campfire
       headers: headers
 
     request = @http.request opts, (response) ->
-      data = ""
+      data = ''
 
       response.on 'data', (chunk) ->
         data += chunk

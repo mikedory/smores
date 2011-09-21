@@ -1,12 +1,12 @@
 class Message
   constructor: (@campfire, data) ->
-    @id        = data.id
-    @body      = data.body
-    @type      = data.type
-    @roomId    = data.room_id
-    @userId    = data.user_id
-    @createdAt = new Date data.created_at
-    @path      = "/messages/#{@id}"
+    @id         = data.id
+    @body       = data.body
+    @type       = data.type
+    @room_id    = data.room_id
+    @user_id    = data.user_id
+    @created_at = new Date data.created_at
+    @path       = "/messages/#{@id}"
 
   star: (callback) ->
     @post '/star', null, callback

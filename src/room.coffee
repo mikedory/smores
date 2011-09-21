@@ -2,15 +2,15 @@ Message = require('./message').Message
 
 class Room
   constructor: (@campfire, data) ->
-    @id              = data.id
-    @name            = data.name
-    @topic           = data.topic
-    @locked          = data.locked
-    @createdAt       = new Date data.created_at
-    @updatedAt       = new Date data.updated_at
-    @membershipLimit = data.membership_limit
-    @path            = "/room/#{@id}"
-    @connection      = null
+    @id               = data.id
+    @name             = data.name
+    @topic            = data.topic
+    @locked           = data.locked
+    @created_at       = new Date data.created_at
+    @updated_at       = new Date data.updated_at
+    @membership_limit = data.membership_limit
+    @path             = "/room/#{@id}"
+    @connection       = null
 
   join: (callback) ->
     @post '/join', '', callback
