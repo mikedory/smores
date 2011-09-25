@@ -4,21 +4,21 @@ Message = require('./message').Message
 class Campfire
   constructor: (options) ->
     options = options or {}
-    ssl     = !!options.ssl
+    ssl = !!options.ssl
 
     throw new Error 'Please provide an API token' unless options.token
     throw new Error 'Please provide an account name' unless options.account
 
-    @http          = (if ssl then require 'https' else require 'http')
-    @port          = (if ssl then 443 else 80)
-    @domain        = "#{options.account}.campfirenow.com"
+    @http = (if ssl then require 'https' else require 'http')
+    @port = (if ssl then 443 else 80)
+    @domain = "#{options.account}.campfirenow.com"
     @authorization = 'Basic ' + new Buffer(options.token + ':x').toString('base64')
 
   join: (id, callback) ->
     @room id, (error, room) ->
-      return callback error if error
+      return callback? error if error
       room.join (error) ->
-        callback error, room
+        callback? error, room
 
   me: (callback) ->
     @get '/users/me', callback
@@ -26,22 +26,22 @@ class Campfire
   presence: (callback) ->
     @get '/presence', (error, response) =>
       rooms = (new Room @, room for room in response.rooms) if response
-      callback error, rooms
+      callback? error, rooms
 
   rooms: (callback) ->
     @get '/rooms', (error, response) =>
       rooms = (new Room @, room for room in response.rooms) if response
-      callback error, rooms
+      callback? error, rooms
 
   room: (id, callback) ->
     @get "/room/#{id}", (error, response) =>
       room = new Room @, response.room if response
-      callback error, room
+      callback? error, room
 
   search: (term, callback) ->
     @get "/search/#{term}", (error, response) =>
       messages = (new Message @, message for message in response.messages) if response
-      callback error, messages
+      callback? error, messages
 
   user: (id, callback) ->
     @get "/users/#{id}", callback
@@ -81,9 +81,9 @@ class Campfire
       response.on 'end', ->
         try
           data = JSON.parse data
-          callback null, data 
+          callback? null, data 
         catch e
-          callback new Error 'Invalid JSON response'
+          callback? new Error 'Invalid JSON response'
  
     request.write body if method is 'POST'
     request.end()

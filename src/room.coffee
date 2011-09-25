@@ -39,7 +39,7 @@ class Room
         for chunk in data.split("\r")
           try
             data = JSON.parse chunk.trim()
-            callback new Message campfire, data
+            callback? new Message campfire, data
           catch e
             return
 
@@ -49,10 +49,7 @@ class Room
     @post '/lock', '', callback
 
   message: (text, type, callback) ->
-    @post '/speak', message:
-      body: text
-      type: type
-    , callback
+    @post '/speak', { message: { body: text, type: type } }, callback
 
   paste: (text, callback) ->
     @message text, 'PasteMessage', callback
@@ -60,7 +57,7 @@ class Room
   messages: (callback) ->
     @get '/recent', (error, response) =>
       messages = (new Message @campfire, message for message in response.messages) if response
-      callback error, messages
+      callback? error, messages
 
   show: (callback) ->
     @post '', '', callback
@@ -77,7 +74,7 @@ class Room
     path += "/#{date.getFullYear()}/#{date.getMonth()}/#{date.getDate()}" if date instanceof Date
     @get path, (error,response) =>
       messages = (new Message @campfire, message for message in response.message) if response
-      callback error, messages
+      callback? error, messages
 
   tweet: (url, callback) ->
     @message url, 'TweetMessage', callback
@@ -88,7 +85,7 @@ class Room
   uploads: (callback) ->
     @get '/uploads', (error, response) ->
       uploads = response.uploads if response
-      callback error, uploads
+      callback? error, uploads
 
   get: (path, callback) ->
     @campfire.get @path + path, callback
