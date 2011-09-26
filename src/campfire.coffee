@@ -69,7 +69,7 @@ class Campfire
       host: @domain
       port: @port
       method: method
-      path: "#{path}.json"
+      path: path
       headers: headers
 
     request = @http.request opts, (response) ->
