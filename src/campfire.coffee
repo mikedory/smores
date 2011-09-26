@@ -81,7 +81,7 @@ class Campfire
       response.on 'end', ->
         try
           data = JSON.parse data
-          callback? null, data 
+          callback? null, data
         catch e
           callback? new Error 'Invalid JSON response'
  
