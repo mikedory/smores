@@ -12,6 +12,7 @@ class Campfire
 
     @http = (if ssl then require 'https' else require 'http')
     @port = (if ssl then 443 else 80)
+
     @domain = "#{options.account}.campfirenow.com"
     @authorization = 'Basic ' + new Buffer(options.token + ':x').toString('base64')
 
@@ -57,10 +58,7 @@ class Campfire
     @request 'POST', path, body, callback
 
   request: (method, path, body, callback) ->
-    headers =
-      'Authorization': @authorization
-      'Host': @domain
-      'Content-Type': 'application/json'
+    headers = 'authorization': @authorization, 'host': @domain, 'content-type': 'application/json'
 
     if method is 'POST' or method is 'DELETE'
       body = JSON.stringify body unless typeof body is 'string'
