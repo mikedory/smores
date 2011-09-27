@@ -1,4 +1,5 @@
 class Message
+
   constructor: (@campfire, data) ->
     @id         = data.id
     @body       = data.body

@@ -2,6 +2,7 @@ Room    = require('./room').Room
 Message = require('./message').Message
 
 class Campfire
+
   constructor: (options) ->
     options = options or {}
     ssl = !!options.ssl

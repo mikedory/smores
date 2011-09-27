@@ -1,6 +1,7 @@
 Message = require('./message').Message
 
 class Room
+
   constructor: (@campfire, data) ->
     @id               = data.id
     @name             = data.name
@@ -20,7 +21,7 @@ class Room
     @post '/leave', '', callback
 
   listen: (callback) ->
-   throw new Error 'A callback must be provided for listening' unless callback instanceof Function
+   throw new Error 'A callback must be provided for listening' unless typeof callback is 'function'
 
    campfire = @campfire
    options =
