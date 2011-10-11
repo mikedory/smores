@@ -12,6 +12,33 @@ S'mores is a [Campfire](http://campfirenow.com) library written in CoffeeScript 
 
 ## USAGE
 
+The simplest example of using Smores as a bot that listens for the text `PING`.
+
+```coffeescript
+Campfire = require('smores').Campfire
+
+campfire = new Campfire ssl: true, token: 'api_token', account: 'subdomain'
+
+campfire.join 12345, (error, room) ->
+  room.listen (message) ->
+    if message.body is 'PING'
+      console.log 'PING received, sending PONG'
+      room.speak 'PONG', (error, response) ->
+        console.log 'PONG sent'
+```
+
+More detailed documented of the classes and methods is coming soon.
+
+### Campfire
+
+Coming soon...
+
+### Message
+
+Coming soon...
+
+### Room
+
 Coming soon...
 
 ## CONTRIBUTE
