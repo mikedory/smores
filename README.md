@@ -207,7 +207,245 @@ message.unstar (error, response) ->
 
 ### Room
 
-Coming soon...
+The API for the `Room` class is explained below with examples of using each
+function.
+
+Unless otherwise stated the callback functions will have any errors as the
+first parameter and the response of the request as the second parameter which
+is specific to the function.
+
+#### Constructor
+
+The constructor of the `Room` class configures properties for the room data
+hat this instance represents.
+
+The constructor is only called internally, and not by a user.
+
+#### Properties
+
+* `id` - the ID of the room
+* `name` - the name of the room
+* `topic` - the topic of the room
+* `locked` - the locked status of the room, `true` or `false`
+* `created_at` - the date/time the room was created
+* `updated_at` - the date/time the room was updated
+* `membership_limit` - the maximum number of users allowed in the room
+
+#### Join
+
+The `join` function will join the room that this instance represents.
+
+Example:
+
+```coffeescript
+room.join (error, response) ->
+  if error or not response
+    console.log error or 'Could not join room'
+  else
+    console.log response
+```
+
+#### Leave
+
+The `leave` function will leave the room that this instance represents. If this
+instance is also connected to the streaming API by the `listen` method it will
+also destroy the connection to that.
+
+Example:
+
+```coffeescript
+room.leave (error, response) ->
+  if error or not response
+    console.log error or 'Could not leave room'
+  else
+    console.log response
+```
+
+#### Listen
+
+The `listen` function will connect to the streaming API and stream incoming
+messages to the callback function. The callback function for `listen` will
+only require a single parameter which is the message received.
+
+Example:
+
+```coffeescript
+room.listen (message) ->
+  console.log message
+```
+
+#### Lock
+
+The `lock` function will lock the room that this instance represents.
+
+Example:
+
+```coffeescript
+room.lock (error, response) ->
+  if error or not response
+    console.log error or 'Could not lock room'
+  else
+    console.log response
+```
+
+#### Message
+
+The `message` function sends a message of the specified type. It is usually
+best to use one of the following abstracted functions.
+
+* `paste`
+* `sound`
+* `speak`
+* `tweet`
+
+Example:
+
+```coffeescript
+room.message 'Hello world!', 'TextMessage', (error, response) ->
+  if error or not response
+    console.log error or 'Could not send message'
+  else
+    console.log response
+```
+
+#### Paste
+
+The `paste` function sends paste message.
+
+Example:
+
+```coffeescript
+room.paste 'Some funky paste formatted message', (error, response) ->
+  if error or not response
+    console.log error or 'Could not send paste message'
+  else
+    console.log response
+```
+
+#### Messages
+
+The `messages` function will get an array of `Messages` for the latest messages
+to the room.
+
+Example:
+
+```coffeescript
+room.messages (error, messages) ->
+  if error or not messages
+    console.log error or 'Could not get recent messages'
+  else
+    console.log message for message in messages
+```
+
+#### Show
+
+The `show` function will get a JSON representation of the room and the users
+currently in it.
+
+Example:
+
+```coffeescript
+room.show (error, response) ->
+  if error or not response
+    console.log error or 'Could not get info for room'
+  else
+    console.log response
+```
+
+#### Sound
+
+The `sound` function will send a sound message.
+
+Example:
+
+```coffeescript
+room.sound 'drama', (error, response) ->
+  if error or not response
+    console.log error or 'Could not send sound message'
+  else
+    console.log response
+```
+
+#### Speak
+
+The `speak` function will send a text message.
+
+Example:
+
+```coffeescript
+room.speak 'Hello!', (error, response) ->
+  if error or not response
+    console.log error or 'Could not send message'
+  else
+    console.log response
+```
+
+#### Transcript
+
+The `transcript` function will get an array of messages for today or the
+specified date.
+
+Example:
+
+```coffeescript
+# get messages from today
+room.transcript (error, messages) ->
+  if error or not messages
+    console.log error or 'Could not get messages for today'
+  else
+    console.log message for message in messages
+
+# get messages for 25/12/2010
+room.transcript new Date('25/12/2010'), (error, response) ->
+  if error or not response
+    console.log error or 'Could not get messages for 25/12/2010'
+  else
+    console.log message for message in messages
+```
+
+#### Tweet
+
+The `tweet` function will send a message of a formatted Twitter status for the
+specified tweet status URL.
+
+Example:
+
+```coffeescript
+room.tweet 'http://twitter.com/#!/37signals/status/123814446958264321', (error, response) ->
+  if erorr or not response
+    console.log error or 'Could not send tweet message'
+  else
+    console.log response
+```
+
+#### Unlock
+
+The `unlock` function will unlock the room that this instance represents.
+
+Example:
+
+```coffeescript
+room.unlock (error, response) ->
+  if error or not response
+    console.log error or 'Could not unlock the room'
+  else
+    console.log response
+```
+
+#### Uploads
+
+The `uploads` function will get a JSON representation of the uploads uploaded
+to the room.
+
+Example:
+
+```coffeescript
+room.uploads (error, response) ->
+  if error or not response
+    console.log error or 'Could not find uploads for the room'
+  else
+    console.log response
+```
 
 ## CONTRIBUTE
 
