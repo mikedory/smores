@@ -173,9 +173,9 @@ The constructor is only called internally, and not by a user.
 * `id` - the ID of the message
 * `body` - the body text of the message
 * `type` - the type of the message
-* `room\_id` - the ID of the room that message came from
-* `user\_id` - the ID of the user that sent the message
-* `created\_at` - the date/time the message was sent
+* `room_id` - the ID of the room that message came from
+* `user_id` - the ID of the user that sent the message
+* `created_at` - the date/time the message was sent
 
 #### Star
 
