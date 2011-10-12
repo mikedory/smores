@@ -27,11 +27,130 @@ campfire.join 12345, (error, room) ->
         console.log 'PONG sent'
 ```
 
-More detailed documented of the classes and methods is coming soon.
-
 ### Campfire
 
-Coming soon...
+The API for the `Campfire` class is explained below with examples of using each
+function.
+
+Unless otherwise stated the callback functions will have any errors as the
+first parameter and the response of the request as the second parameter which
+is specific to the function.
+
+#### Constructor
+
+The constructor of the `Campfire` class configures properties for connecting to
+the Campfire API.
+
+Example:
+
+```coffeescript
+options = token: "your.api.token", account: "your.accout.subdomain", ssl: true
+campfire = new Campfire options
+```
+
+#### Join
+
+The `join` function will join a room with the specified room ID.
+
+Example:
+
+```coffeescript
+campfire.join 12345, (error, room) ->
+  if error or not room
+    console.log error or 'Could not join room 12345'
+  else
+    console.log room
+```
+
+#### Me
+
+The `me` function will get a JSON representation of the currently authenticated
+user.
+
+Example:
+
+```coffeescript
+campfire.me (error, me) ->
+  if error or not me
+    console.log error or 'Could not get current user information'
+  else
+    console.log me
+```
+
+#### Presence
+
+The `presence` function will get an array of `Room` instances for every room
+that the currently authenticated user is in.
+
+Example:
+
+```coffeescript
+campfire.presence (error, rooms) ->
+  if error or not rooms
+    console.log error or 'Could not get the presence for the current user'
+  else
+    console.log room for room in rooms
+```
+
+#### Rooms
+
+The `rooms` function will get an array of `Room` instances for every room
+that the currently authenticated user is able to join.
+
+Example:
+
+```coffeescript
+campfire.rooms (error, rooms) ->
+  if error or not rooms
+    console.log error or 'Could not get the rooms the current user can join'
+  else
+    console.log room for room in rooms
+```
+
+#### Room
+
+The `room` function will get a `Room` instance for the room with the specified
+room ID.
+
+Example:
+
+```coffeescript
+campfire.room 12345, (error, room) ->
+  if error or not room
+    console.log error or 'Could not get room info for 12345'
+  else
+    console.log room
+```
+
+#### Search
+
+The `search` function will get an array of `Message` instances which contain
+the specified search term.
+
+Example:
+
+```coffeescript
+campfire.search 'pickles', (error, messages) ->
+  if error or not messages
+    console.log error or 'Could not find search results for pickles'
+  else
+    console.log message for message in messages
+```
+
+#### User
+
+The `user` function will get a JSON representation of a user with the specified
+ID.
+
+Example:
+
+```coffeescript
+campfire.user 12345, (error, user) ->
+  if error or not user
+    console.log error or 'Could not find user info for 12345'
+  else
+    console.log user
+```
 
 ### Message
 
