@@ -154,7 +154,56 @@ campfire.user 12345, (error, user) ->
 
 ### Message
 
-Coming soon...
+The API for the `Message` class is explained below with examples of using each
+function.
+
+Unless otherwise stated the callback functions will have any errors as the
+first parameter and the response of the request as the second parameter which
+is specific to the function.
+
+#### Constructor
+
+The constructor of the `Message` class configures properties for the message
+data that this instance represents.
+
+The constructor is only called internally, and not by a user.
+
+#### Properties
+
+* `id` - the ID of the message
+* `body` - the body text of the message
+* `type` - the type of the message
+* `room\_id` - the ID of the room that message came from
+* `user\_id` - the ID of the user that sent the message
+* `created\_at` - the date/time the message was sent
+
+#### Star
+
+The `star` function stars the message for the authenticated user.
+
+Example:
+
+```coffeescript
+message.star (error, response) ->
+  if error or not response
+    console.log error or 'Could not star the message'
+  else
+    console.log response
+```
+
+#### Unstar
+
+The `unstar` function unstars the message for the authenticated user.
+
+Example:
+
+```coffeescript
+message.unstar (error, response) ->
+  if error or not response
+    console.log error or 'Could not unstar the message'
+  else
+    console.log response
+```
 
 ### Room
 
