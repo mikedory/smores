@@ -8,7 +8,7 @@ S'mores is a [Campfire](http://campfirenow.com) library written in CoffeeScript 
 
 ### For Your Project
 
-* Install the library in your project directory with `npm install sooty`
+* Install the library in your project directory with `npm install smores`
 
 ### For Development
 
